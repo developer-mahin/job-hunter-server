@@ -1,6 +1,9 @@
-import { Server } from "http";
-import app from "./app";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
+import { Server } from 'http';
+import app from './app';
 
+// eslint-disable-next-line no-unused-vars
 let server: Server;
 
 function main() {
