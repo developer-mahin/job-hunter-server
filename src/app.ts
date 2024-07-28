@@ -1,25 +1,36 @@
-import express, { Application, NextFunction, Request, Response } from "express";
-import cors from "cors";
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import express, { Application, NextFunction, Request, Response } from 'express';
+import cors from 'cors';
+import notFound from './middlewares/nof-found';
+import globalErrorHandler from './middlewares/globalErrorHandler';
+import router from './routes';
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
     credentials: true,
-  })
+  }),
 );
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", (req: Request, res: Response, next: NextFunction) => {
+
+// all routes are control in here
+app.use(router);
+
+app.use('/', (req: Request, res: Response, next: NextFunction) => {
   res.json({
-    message: "Welcome To The Blood Donation Server",
+    message: 'Welcome To The Blood Donation Server',
   });
 });
 
+// API not found middleware
+app.use(notFound);
 
-// app.use()
-
+// global error handler
+app.use(globalErrorHandler);
 
 export default app;
