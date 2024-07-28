@@ -17,7 +17,6 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 
-
 // all routes are control in here
 app.use(router);
 

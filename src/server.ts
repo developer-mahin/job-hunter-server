@@ -2,14 +2,41 @@
 /* eslint-disable no-console */
 import { Server } from 'http';
 import app from './app';
+import config from './config';
+import mongoose from 'mongoose';
 
 // eslint-disable-next-line no-unused-vars
 let server: Server;
 
-function main() {
-  server = app.listen(5000, () => {
-    console.log(`Server is running successfully http://localhost:5000/`);
-  });
+async function main() {
+  try {
+    await mongoose.connect(config.database_url as string).then(() => {
+      console.log('Database connected successfully');
+    });
+
+    server = app.listen(config.port, () => {
+      console.log(
+        `Server is running successfully http://localhost:${config.port}/`,
+      );
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 main();
+
+process.on('unhandledRejection', () => {
+  console.log(`👹 unhandledRejection is detected, shuting down....`);
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
+  }
+  process.exit(1);
+});
+
+process.on('uncaughtException', () => {
+  console.log(`👹 uncaughtException is detected, shuting down....`);
+  process.exit(1);
+});
