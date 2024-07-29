@@ -4,9 +4,11 @@ import User from '../User/user.model';
 import { TRegisterUser } from './auth.interface';
 import generateToken from '../../../utils/generateToken';
 import config from '../../../config';
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
 import emailVerification from '../../../utils/emailVerification';
 import { verifyHtml } from '../../Constant/verifyHtml';
+import { decodeToken } from '../../../utils/decodeToken';
+import { Response } from 'express';
 
 const registerUserIntoDB = async (payload: TRegisterUser) => {
   const isExist = await User.findOne({
@@ -20,11 +22,7 @@ const registerUserIntoDB = async (payload: TRegisterUser) => {
     );
   }
 
-  const token = generateToken(
-    payload,
-    config.jwt.access_token as Secret,
-    config.jwt.access_expires_in as string,
-  );
+  const token = generateToken(payload, config.jwt.access_token as Secret, '5m');
 
   try {
     const mailData = {
@@ -42,8 +40,32 @@ const registerUserIntoDB = async (payload: TRegisterUser) => {
   }
 };
 
-const verifyUser = async (token: string) => {
-  console.log(token);
+const verifyUser = async (res: Response, token: string) => {
+  const user = decodeToken(
+    token,
+    config.jwt.access_token as Secret,
+  ) as JwtPayload;
+
+  const { name, email, password, confirmPassword, photo } = user;
+
+  const isExistUser = await User.exists({ email });
+
+  if (isExistUser) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'user already with this email address please try another email address',
+    );
+  }
+
+  await User.create({
+    name,
+    email,
+    password,
+    confirmPassword,
+    photo,
+  });
+
+  res.redirect(`${config.front_end_url}/login`);
 };
 
 export const authService = {
