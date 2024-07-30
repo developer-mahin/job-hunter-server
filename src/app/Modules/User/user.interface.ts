@@ -16,6 +16,7 @@ export type TUser = {
     country?: string;
     city?: string;
   };
+  passwordUpdatedAt?: Date;
   status: 'active' | 'blocked';
   role: 'user' | 'recruiter' | 'admin';
   isDeleted: boolean;
@@ -23,4 +24,8 @@ export type TUser = {
 
 export interface UserModel extends Model<TUser> {
   isUserExist(email: string): Promise<TUser>;
+  isJWTIssuedBeforePasswordChanged(
+    passwordChangeTimeStamps: Date,
+    jwtIssuedTimeStamps: number,
+  ): boolean;
 }

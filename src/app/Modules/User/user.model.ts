@@ -56,6 +56,9 @@ const userSchema = new mongoose.Schema<TUser, UserModel>(
         trim: true,
       },
     },
+    passwordUpdatedAt: {
+      type: Date,
+    },
     status: {
       type: String,
       enum: ['active', 'blocked'],
@@ -99,6 +102,15 @@ userSchema.post('save', function (doc, next) {
 
 userSchema.statics.isUserExist = async function (email: string) {
   return await User.findOne({ email }).select('+password');
+};
+
+userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
+  passwordChangeTimeStamps: Date,
+  jwtIssuedTimeStamps: number,
+) {
+  const passwordChangedTime =
+    new Date(passwordChangeTimeStamps).getTime() / 1000;
+  return passwordChangedTime > jwtIssuedTimeStamps;
 };
 
 const User = mongoose.model<TUser, UserModel>('User', userSchema);
