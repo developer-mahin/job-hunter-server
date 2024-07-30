@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import AppError from '../../../utils/AppError';
 import User from '../User/user.model';
-import { TRegisterUser } from './auth.interface';
+import { TLoginUser, TRegisterUser } from './auth.interface';
 import generateToken from '../../../utils/generateToken';
 import config from '../../../config';
 import { JwtPayload, Secret } from 'jsonwebtoken';
@@ -9,6 +9,7 @@ import emailVerification from '../../../utils/emailVerification';
 import { verifyHtml } from '../../Constant/verifyHtml';
 import { decodeToken } from '../../../utils/decodeToken';
 import { Response } from 'express';
+import { isMatchedPassword } from '../../../utils/matchPassword';
 
 const registerUserIntoDB = async (payload: TRegisterUser) => {
   const isExist = await User.findOne({
@@ -68,7 +69,56 @@ const verifyUser = async (res: Response, token: string) => {
   res.redirect(`${config.front_end_url}/login`);
 };
 
+const loginUser = async (payload: TLoginUser) => {
+  const { email, password } = payload;
+
+  const user = await User.isUserExist(email);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
+  }
+
+  const isDeleted = user?.isDeleted;
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+  }
+
+  const checkUserStatus = user?.status;
+  if (checkUserStatus === 'blocked') {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked!');
+  }
+
+  const matchPassword = await isMatchedPassword(password, user.password);
+
+  if (!matchPassword) {
+    throw new AppError(httpStatus.FORBIDDEN, 'password not matched');
+  }
+
+  const userDate = {
+    userId: user?.email,
+    role: user?.role,
+  };
+
+  const accessToken = generateToken(
+    userDate,
+    config.jwt.access_token as Secret,
+    config.jwt.access_expires_in as string,
+  );
+
+  const refreshToken = generateToken(
+    userDate,
+    config.jwt.refresh_token as Secret,
+    config.jwt.refresh_expires_in as string,
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
+};
+
 export const authService = {
   registerUserIntoDB,
   verifyUser,
+  loginUser,
 };

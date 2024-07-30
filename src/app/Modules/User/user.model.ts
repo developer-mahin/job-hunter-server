@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { TUser } from './user.interface';
+import { TUser, UserModel } from './user.interface';
 import { hashPassword } from '../../../utils/hashPassword';
 import config from '../../../config';
 
-const userSchema = new mongoose.Schema<TUser>(
+const userSchema = new mongoose.Schema<TUser, UserModel>(
   {
     name: {
       type: String,
@@ -68,6 +68,10 @@ const userSchema = new mongoose.Schema<TUser>(
       required: [true, 'Role is required'],
       default: 'user',
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -93,9 +97,9 @@ userSchema.post('save', function (doc, next) {
   next();
 });
 
+userSchema.statics.isUserExist = async function (email: string) {
+  return await User.findOne({ email }).select('+password');
+};
 
-
-
-
-const User = mongoose.model<TUser>('User', userSchema);
+const User = mongoose.model<TUser, UserModel>('User', userSchema);
 export default User;

@@ -11,6 +11,12 @@ router.post(
   authController.registerUser,
 );
 
+router.post(
+  '/login_user',
+  validateRequest(authValidation.loginUserValidationSchema),
+  authController.loginUser,
+);
+
 router.get('/verify/:token', authController.verifyUser);
 
 export const authRoutes = router;

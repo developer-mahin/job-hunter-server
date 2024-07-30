@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import { Model } from 'mongoose';
+
 export type TUser = {
   name: string;
   email: string;
@@ -15,4 +18,9 @@ export type TUser = {
   };
   status: 'active' | 'blocked';
   role: 'user' | 'recruiter' | 'admin';
+  isDeleted: boolean;
 };
+
+export interface UserModel extends Model<TUser> {
+  isUserExist(email: string): Promise<TUser>;
+}

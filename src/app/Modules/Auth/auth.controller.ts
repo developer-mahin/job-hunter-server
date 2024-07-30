@@ -3,6 +3,7 @@ import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';
 import { authService } from './auth.service';
 import AppError from '../../../utils/AppError';
+import config from '../../../config';
 
 const registerUser = catchAsync(async (req, res) => {
   const result = await authService.registerUserIntoDB(req.body);
@@ -10,7 +11,7 @@ const registerUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.CREATED,
-    message: 'user registered successful',
+    message: 'Please verify your email address!!',
     data: result,
   });
 });
@@ -33,7 +34,26 @@ const verifyUser = catchAsync(async (req, res) => {
   });
 });
 
+const loginUser = catchAsync(async (req, res) => {
+  const { accessToken, refreshToken } = await authService.loginUser(req.body);
+
+  res.cookie('refreshToken', refreshToken, {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+  });
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'you are now verified user, Please login!!',
+    data: {
+      token: accessToken,
+    },
+  });
+});
+
 export const authController = {
   registerUser,
   verifyUser,
+  loginUser,
 };
