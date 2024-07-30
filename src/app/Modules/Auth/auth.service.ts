@@ -10,6 +10,7 @@ import { verifyHtml } from '../../Constant/verifyHtml';
 import { decodeToken } from '../../../utils/decodeToken';
 import { Response } from 'express';
 import { isMatchedPassword } from '../../../utils/matchPassword';
+import { hashPassword } from '../../../utils/hashPassword';
 
 const registerUserIntoDB = async (payload: TRegisterUser) => {
   const isExist = await User.findOne({
@@ -95,7 +96,7 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   const userDate = {
-    userId: user?.email,
+    email: user?.email,
     role: user?.role,
   };
 
@@ -117,8 +118,54 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
+const changePassword = async (
+  userData: JwtPayload,
+  payload: { newPassword: string; oldPassword: string },
+) => {
+  const user = await User.isUserExist(userData.email);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  const checkIsDeleted = user?.isDeleted;
+  if (checkIsDeleted) {
+    throw new AppError(httpStatus.NOT_FOUND, 'You are deleted user');
+  }
+
+  if (user?.status === 'blocked') {
+    throw new AppError(httpStatus.NOT_FOUND, 'You are a blocked user');
+  }
+
+  // compare old password
+  const matchPassword = await isMatchedPassword(
+    payload.oldPassword,
+    user.password,
+  );
+
+  if (!matchPassword) {
+    throw new AppError(httpStatus.FORBIDDEN, 'password not matched');
+  }
+
+  // hash new password
+  const hashNewPassword = await hashPassword(
+    payload?.newPassword,
+    Number(config.salt_round) as number,
+  );
+
+  await User.findOneAndUpdate(
+    { email: userData?.email, role: userData?.role },
+    {
+      password: hashNewPassword,
+      passwordUpdatedAt: new Date(),
+    },
+  );
+
+  return null;
+};
+
 export const authService = {
   registerUserIntoDB,
   verifyUser,
   loginUser,
+  changePassword,
 };

@@ -20,6 +20,9 @@ export const auth = (...requestedRole: TUserRole[]) => {
       config.jwt.access_token as Secret,
     ) as JwtPayload;
 
+
+    console.log(decoded)
+
     const { role, email, iat } = decoded;
 
     if (requestedRole && !requestedRole.includes(role)) {
