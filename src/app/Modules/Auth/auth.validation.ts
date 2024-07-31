@@ -40,8 +40,31 @@ const changePasswordValidationSchema = z.object({
   }),
 });
 
+const forgotPasswordValidationSchema = z.object({
+  body: z.object({
+    email: z
+      .string()
+      .email({ message: 'Invalid email address' })
+      .min(1, { message: 'Email is required' }),
+  }),
+});
+
+const resetPasswordValidationSchema = z.object({
+  body: z.object({
+    email: z
+      .string()
+      .email({ message: 'Invalid email address' })
+      .min(1, { message: 'Email is required' }),
+    newPassword: z.string({
+      required_error: 'password is required',
+    }),
+  }),
+});
+
 export const authValidation = {
   registerUserValidationSchema,
   loginUserValidationSchema,
-  changePasswordValidationSchema
+  changePasswordValidationSchema,
+  forgotPasswordValidationSchema,
+  resetPasswordValidationSchema,
 };

@@ -11,6 +11,7 @@ import { decodeToken } from '../../../utils/decodeToken';
 import { Response } from 'express';
 import { isMatchedPassword } from '../../../utils/matchPassword';
 import { hashPassword } from '../../../utils/hashPassword';
+import { forgotPasswordHtml } from '../../Constant/forgotPasswordHtml';
 
 const registerUserIntoDB = async (payload: TRegisterUser) => {
   const isExist = await User.findOne({
@@ -163,9 +164,85 @@ const changePassword = async (
   return null;
 };
 
+const forgotPassword = async (email: string) => {
+  const user = await User.isUserExist(email);
+  if (!user) {
+    throw new AppError(httpStatus.FORBIDDEN, 'User not found');
+  }
+
+  if (user.isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'User was deleted');
+  }
+
+  if (user.status === 'blocked') {
+    throw new AppError(httpStatus.FORBIDDEN, 'you are a block user');
+  }
+
+  const userDate = {
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = generateToken(
+    userDate,
+    config.jwt.access_token as Secret,
+    '5m',
+  );
+
+  const generatedLink = `${config.front_end_url}/forgot_password?email=${user?.email}&token=${accessToken}`;
+
+  const mailData = {
+    email: user.email,
+    subject: 'Reset your password!!',
+    html: forgotPasswordHtml(user.name, generatedLink),
+  };
+
+  emailVerification(mailData);
+};
+
+const resetPassword = async (
+  payload: { email: string; newPassword: string },
+  token: string,
+) => {
+  const user = await User.isUserExist(payload.email);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found! Invalid ID!!');
+  }
+
+  if (user.isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'User was deleted');
+  }
+
+  if (user.status === 'blocked') {
+    throw new AppError(httpStatus.FORBIDDEN, 'you are a block user');
+  }
+
+  const decoded = decodeToken(
+    token,
+    config.jwt.access_token as Secret,
+  ) as JwtPayload;
+
+  if (payload.email !== decoded.email) {
+    throw new AppError(httpStatus.FORBIDDEN, 'Forbidden access');
+  }
+
+  const passwordHash = await hashPassword(
+    payload.newPassword,
+    Number(config.salt_round) as number,
+  );
+
+  await User.findOneAndUpdate(
+    { email: payload.email, role: decoded.role },
+    { password: passwordHash, passwordUpdatedAt: new Date() },
+  );
+};
+
 export const authService = {
   registerUserIntoDB,
   verifyUser,
   loginUser,
   changePassword,
+  forgotPassword,
+  resetPassword,
 };
