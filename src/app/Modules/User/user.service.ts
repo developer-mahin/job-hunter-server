@@ -90,9 +90,31 @@ const updateUserIntoDB = async (id: string, payload: Partial<TUser>) => {
   return result;
 };
 
+const deleteUserFormDB = async (
+  id: string,
+  payload: { isDeleted: boolean },
+) => {
+  const user = await User.findById(id);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'user not found !!');
+  }
+
+  if (user.isDeleted) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'You are deleted user');
+  }
+
+  if (user.status === 'blocked') {
+    throw new AppError(httpStatus.BAD_REQUEST, 'You are a blocked user');
+  }
+
+  await User.findByIdAndUpdate(id, payload, { new: true });
+};
+
 export const userService = {
   getMyProfileFromDB,
   getAllUsersFromDb,
   getSingleUsersFromDb,
   updateUserIntoDB,
+  deleteUserFormDB,
 };

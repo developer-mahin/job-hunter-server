@@ -92,6 +92,22 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// query middlewares
+userSchema.pre('find', async function (next) {
+  this.find({ isDeleted: false });
+  next();
+});
+
+userSchema.pre('findOne', async function (next) {
+  this.findOne({ isDeleted: { $ne: true } });
+  next();
+});
+
+userSchema.pre('aggregate', async function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
 userSchema.post('save', function (doc, next) {
   this.password = '';
   this.confirmPassword = '';

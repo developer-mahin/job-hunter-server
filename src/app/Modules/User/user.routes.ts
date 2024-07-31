@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { auth } from '../../../middlewares/auth';
 import { USER_ROLE } from './user.constant';
 import { userController } from './user.controller';
+import validateRequest from '../../../middlewares/validation';
+import { userValidation } from './user.validation';
 
 const router = Router();
 
@@ -26,7 +28,15 @@ router.get(
 router.patch(
   '/update_user/:id',
   auth(USER_ROLE.admin, USER_ROLE.recruiter, USER_ROLE.user),
+  validateRequest(userValidation.updateUserValidationSchema),
   userController.updateUser,
+);
+
+router.delete(
+  '/delete_user/:id',
+  auth(USER_ROLE.admin),
+  validateRequest(userValidation.deleteUserValidationSchema),
+  userController.deleteUser,
 );
 
 export const userRoutes = router;
