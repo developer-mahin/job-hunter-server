@@ -23,4 +23,10 @@ router.get(
   userController.getSingleUser,
 );
 
+router.patch(
+  '/update_user/:id',
+  auth(USER_ROLE.admin, USER_ROLE.recruiter, USER_ROLE.user),
+  userController.updateUser,
+);
+
 export const userRoutes = router;

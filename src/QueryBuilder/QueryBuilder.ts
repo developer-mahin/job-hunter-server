@@ -45,6 +45,7 @@ class QueryBuilder<T> {
     const limit = Number(this?.query?.limit) || 10;
     const skip = (page - 1) * limit;
     this.queryModel = this?.queryModel?.skip(skip).limit(limit);
+    return this;
   }
 
   async countTotal() {

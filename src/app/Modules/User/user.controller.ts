@@ -16,13 +16,14 @@ const getMyProfile = catchAsync(async (req, res) => {
 });
 
 const getAllUser = catchAsync(async (req, res) => {
-  const result = await userService.getAllUsersFromDb();
+  const result = await userService.getAllUsersFromDb(req.query);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: 'successfully get all users',
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
 
@@ -38,8 +39,22 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
+const updateUser = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const result = await userService.updateUserIntoDB(id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'user details update successful',
+    data: result,
+  });
+});
+
 export const userController = {
   getMyProfile,
   getAllUser,
   getSingleUser,
+  updateUser,
 };
