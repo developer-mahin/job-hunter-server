@@ -238,6 +238,53 @@ const resetPassword = async (
   );
 };
 
+const refreshToken = async (token: string) => {
+  if (!token) {
+    throw new AppError(httpStatus.FORBIDDEN, 'You are not authorized');
+  }
+
+  const decoded = decodeToken(
+    token,
+    config.jwt.refresh_token as Secret,
+  ) as JwtPayload;
+
+  const { email, iat } = decoded;
+  const user = await User.isUserExist(email);
+  if (!user) {
+    throw new AppError(httpStatus.FORBIDDEN, 'User not found');
+  }
+
+  if (user.isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'You are deleted user');
+  }
+
+  if (
+    user.passwordUpdatedAt &&
+    User.isJWTIssuedBeforePasswordChanged(user.passwordUpdatedAt, iat as number)
+  ) {
+    throw new AppError(httpStatus.FORBIDDEN, 'You are not authorized');
+  }
+
+  if (user.status === 'blocked') {
+    throw new AppError(httpStatus.CONFLICT, 'You are a blocked user');
+  }
+
+  const userData = {
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = generateToken(
+    userData,
+    config.jwt.access_token as Secret,
+    config.jwt.access_expires_in as string,
+  );
+
+  return {
+    accessToken,
+  };
+};
+
 export const authService = {
   registerUserIntoDB,
   verifyUser,
@@ -245,4 +292,5 @@ export const authService = {
   changePassword,
   forgotPassword,
   resetPassword,
+  refreshToken,
 };
