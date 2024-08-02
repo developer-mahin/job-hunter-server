@@ -96,19 +96,20 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.FORBIDDEN, 'password not matched');
   }
 
-  const userDate = {
+  const userData = {
     email: user?.email,
+    userId: user?._id,
     role: user?.role,
   };
 
   const accessToken = generateToken(
-    userDate,
+    userData,
     config.jwt.access_token as Secret,
     config.jwt.access_expires_in as string,
   );
 
   const refreshToken = generateToken(
-    userDate,
+    userData,
     config.jwt.refresh_token as Secret,
     config.jwt.refresh_expires_in as string,
   );
@@ -178,13 +179,14 @@ const forgotPassword = async (email: string) => {
     throw new AppError(httpStatus.FORBIDDEN, 'you are a block user');
   }
 
-  const userDate = {
-    email: user.email,
-    role: user.role,
+  const userData = {
+    email: user?.email,
+    userId: user?._id,
+    role: user?.role,
   };
 
   const accessToken = generateToken(
-    userDate,
+    userData,
     config.jwt.access_token as Secret,
     '5m',
   );
@@ -270,8 +272,9 @@ const refreshToken = async (token: string) => {
   }
 
   const userData = {
-    email: user.email,
-    role: user.role,
+    email: user?.email,
+    userId: user?._id,
+    role: user?.role,
   };
 
   const accessToken = generateToken(
