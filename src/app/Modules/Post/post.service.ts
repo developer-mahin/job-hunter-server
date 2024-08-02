@@ -40,6 +40,31 @@ const getAllPostFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+const getAllMyPostFromDB = async (
+  query: Record<string, unknown>,
+  token: string,
+) => {
+  const postSearchableQuery = ['postDetails'];
+  const decode = decodeToken(
+    token,
+    config.jwt.access_token as Secret,
+  ) as JwtPayload;
+
+  const postQuery = new QueryBuilder(
+    Post.find({ author: decode.userId }).populate('author'),
+    query,
+  )
+    .search(postSearchableQuery)
+    .paginate()
+    .sort();
+  const result = await postQuery.queryModel;
+  const meta = await postQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
+};
+
 const getSinglePostFromDB = async (postId: string) => {
   return await Post.findById(postId).populate('author');
 };
@@ -90,4 +115,5 @@ export const postService = {
   getSinglePostFromDB,
   updatePostIntoDB,
   deletePostFromDB,
+  getAllMyPostFromDB,
 };
