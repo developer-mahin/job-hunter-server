@@ -1,11 +1,11 @@
+import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import QueryBuilder from '../../../QueryBuilder/QueryBuilder';
+import AppError from '../../../utils/AppError';
 import { decodeToken } from '../../../utils/decodeToken';
 import { TPost } from './post.interface';
 import Post from './post.model';
-import AppError from '../../../utils/AppError';
-import httpStatus from 'http-status';
 
 const createPostIntoDB = async (
   payload: Pick<TPost, 'postDetails' | 'image'>,
@@ -28,7 +28,13 @@ const createPostIntoDB = async (
 const getAllPostFromDB = async (query: Record<string, unknown>) => {
   const postSearchableQuery = ['postDetails'];
 
-  const postQuery = new QueryBuilder(Post.find({}).populate('author'), query)
+  const postQuery = new QueryBuilder(
+    Post.find({}).populate('author').populate({
+      path: 'comments.user',
+      model: 'User',
+    }),
+    query,
+  )
     .search(postSearchableQuery)
     .paginate()
     .sort();
@@ -51,7 +57,10 @@ const getAllMyPostFromDB = async (
   ) as JwtPayload;
 
   const postQuery = new QueryBuilder(
-    Post.find({ author: decode.userId }).populate('author'),
+    Post.find({ author: decode.userId }).populate('author').populate({
+      path: 'comments.user',
+      model: 'User',
+    }),
     query,
   )
     .search(postSearchableQuery)
@@ -66,7 +75,10 @@ const getAllMyPostFromDB = async (
 };
 
 const getSinglePostFromDB = async (postId: string) => {
-  return await Post.findById(postId).populate('author');
+  return await Post.findById(postId).populate('author').populate({
+    path: 'comments.user',
+    model: 'User',
+  });
 };
 
 const updatePostIntoDB = async (

@@ -14,4 +14,11 @@ router.post(
   commentController.createComment,
 );
 
+router.patch(
+  '/update_comment/:postId',
+  validateRequest(commentValidation.updateCommentValidationSchema),
+  auth(USER_ROLE.admin, USER_ROLE.recruiter, USER_ROLE.user),
+  commentController.updateComment,
+);
+
 export const commentRoutes = router;
