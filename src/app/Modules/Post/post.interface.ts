@@ -1,7 +1,8 @@
 import { Types } from 'mongoose';
 
 export type TComment = {
-  comment: string;
+  commentBody: string;
+  image?: string;
   user: Types.ObjectId;
 };
 

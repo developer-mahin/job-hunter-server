@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { TComment, TPost } from './post.interface';
 
 const commentSchema = new mongoose.Schema<TComment>({
-  comment: {
+  commentBody: {
     type: String,
     required: true,
     trim: true,

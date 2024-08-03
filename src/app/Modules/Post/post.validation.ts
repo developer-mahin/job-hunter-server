@@ -1,22 +1,26 @@
 import { z } from 'zod';
 
-const commentSchema = z.object({
-  comment: z.string().min(1, 'Comment is required'),
-  user: z.string().refine(
-    (val) => {
-      return /^[0-9a-fA-F]{24}$/.test(val);
-    },
-    {
-      message: 'Invalid user ObjectId',
-    },
-  ),
+export const commentValidationSchema = z.object({
+  commentBody: z.string().min(1, 'Comment is required'),
+  image: z.string().optional(),
+  user: z
+    .string()
+    .refine(
+      (val) => {
+        return /^[0-9a-fA-F]{24}$/.test(val);
+      },
+      {
+        message: 'Invalid author ObjectId',
+      },
+    )
+    .optional(),
 });
 
 const createPostValidationSchema = z.object({
   body: z.object({
     postDetails: z.string().min(1, 'Post details are required'),
     image: z.string().optional(),
-    comments: z.array(commentSchema).optional(),
+    comments: z.array(commentValidationSchema).optional(),
     author: z
       .string()
       .refine(
