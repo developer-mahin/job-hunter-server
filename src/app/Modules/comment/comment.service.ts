@@ -96,7 +96,54 @@ const updateCommentIntoDB = async (
   );
 };
 
+const deleteCommentFromDB = async (
+  id: string,
+  payload: { commentId: string },
+  token: string,
+) => {
+  const postExist = await Post.findById(id);
+
+  if (!postExist) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Post not found with this ID!!!');
+  }
+
+  const decode = decodeToken(
+    token,
+    config.jwt.access_token as Secret,
+  ) as JwtPayload;
+
+  const userId = decode.userId;
+
+  // Find the specific comment
+  const post = await Post.findOne(
+    {
+      _id: id,
+      'comments._id': payload.commentId,
+      'comments.user': userId,
+    },
+    {
+      'comments.$': 1,
+    },
+  );
+
+  if (!post) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      "You can't delete this comment!! you are not the author of this comment",
+    );
+  }
+
+  // Delete the specific comment
+  await Post.updateOne(
+    { _id: id, 'comments._id': payload.commentId },
+    {
+      $pull: { comments: { _id: payload.commentId } },
+    },
+  );
+};
+
 export const commentService = {
   createCommentIntoBD,
   updateCommentIntoDB,
+  deleteCommentFromDB,
 };

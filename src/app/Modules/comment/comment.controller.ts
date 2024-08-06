@@ -31,8 +31,25 @@ const updateComment = catchAsync(async (req, res) => {
 
   sendResponse(res, {
     success: true,
-    statusCode: httpStatus.CREATED,
+    statusCode: httpStatus.OK,
     message: 'comment update successful',
+    data: result,
+  });
+});
+
+const deleteComment = catchAsync(async (req, res) => {
+  const { postId } = req.params;
+  const token = req.headers.authorization;
+  const result = await commentService.deleteCommentFromDB(
+    postId,
+    req.body,
+    token as string,
+  );
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'comment delete successful',
     data: result,
   });
 });
@@ -40,4 +57,5 @@ const updateComment = catchAsync(async (req, res) => {
 export const commentController = {
   createComment,
   updateComment,
+  deleteComment,
 };
