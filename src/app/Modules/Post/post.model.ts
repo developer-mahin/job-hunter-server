@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { TComment, TPost } from './post.interface';
+import { TComment, TLike, TPost } from './post.interface';
 
 const commentSchema = new mongoose.Schema<TComment>({
   commentBody: {
@@ -14,9 +14,22 @@ const commentSchema = new mongoose.Schema<TComment>({
   },
 });
 
+const likeSchema = new mongoose.Schema<TLike>({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+});
+
 const postSchema = new mongoose.Schema<TPost>(
   {
     postDetails: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    postCategory: {
       type: String,
       required: true,
       trim: true,
@@ -30,12 +43,7 @@ const postSchema = new mongoose.Schema<TPost>(
       ref: 'User',
       required: true,
     },
-    likes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
+    likes: [likeSchema],
     dislikes: [
       {
         type: Schema.Types.ObjectId,

@@ -75,10 +75,16 @@ const getAllMyPostFromDB = async (
 };
 
 const getSinglePostFromDB = async (postId: string) => {
-  return await Post.findById(postId).populate('author').populate({
-    path: 'comments.user',
-    model: 'User',
-  });
+  return await Post.findById(postId)
+    .populate('author')
+    .populate({
+      path: 'comments.user',
+      model: 'User',
+    })
+    .populate({
+      path: 'likes.user',
+      model: 'User',
+    });
 };
 
 const updatePostIntoDB = async (
