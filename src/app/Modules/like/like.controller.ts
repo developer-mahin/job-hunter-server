@@ -16,6 +16,19 @@ const clickToLike = catchAsync(async (req, res) => {
   });
 });
 
+const getLikedUser = catchAsync(async (req, res) => {
+  const { postId } = req.params;
+  const result = await likeService.getLikedUser(postId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: 'liked user get',
+    data: result,
+  });
+});
+
 export const likeController = {
   clickToLike,
+  getLikedUser,
 };

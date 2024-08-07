@@ -43,6 +43,14 @@ const clickToLike = async (id: string, token: string) => {
   }
 };
 
+const getLikedUser = async (id: string) => {
+  return await Post.findById(id).select('likes').populate({
+    path: 'likes.user',
+    model: 'User',
+  });
+};
+
 export const likeService = {
   clickToLike,
+  getLikedUser,
 };
