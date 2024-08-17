@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const updateUserValidationSchema = z.object({
   body: z.object({
-    name: z.string().min(1, { message: 'Name is required' }),
+    name: z.string().min(1, { message: 'Name is required' }).optional(),
     photo: z
       .string()
       .url({ message: 'Invalid photo URL' })

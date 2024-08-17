@@ -31,7 +31,6 @@ const postSchema = new mongoose.Schema<TPost>(
     },
     postCategory: {
       type: String,
-      required: true,
       trim: true,
     },
     image: {

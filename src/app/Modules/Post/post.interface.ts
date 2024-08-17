@@ -13,7 +13,7 @@ export type TLike = {
 export type TPost = {
   postDetails: string;
   image?: string;
-  postCategory: string;
+  postCategory?: string;
   comments?: TComment[];
   author: Types.ObjectId;
   likes?: TLike[];

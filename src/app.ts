@@ -9,13 +9,13 @@ import router from './routes';
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }),
+);
 app.use(express.urlencoded({ extended: true }));
-
-// {
-//   origin: 'http://localhost:3000',
-//   credentials: true,
-// }
 
 // all routes are control in here
 app.use('/api/v1', router);
