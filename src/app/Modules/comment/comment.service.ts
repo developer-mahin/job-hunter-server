@@ -85,7 +85,7 @@ const updateCommentIntoDB = async (
   };
 
   // // Update the specific comment with the merged data
-  await Post.updateOne(
+  const result = await Post.updateOne(
     { _id: id, 'comments._id': payload.commentId },
     {
       $set: {
@@ -94,6 +94,8 @@ const updateCommentIntoDB = async (
       },
     },
   );
+
+  return result;
 };
 
 const deleteCommentFromDB = async (
@@ -134,12 +136,14 @@ const deleteCommentFromDB = async (
   }
 
   // Delete the specific comment
-  await Post.updateOne(
+  const result = await Post.updateOne(
     { _id: id, 'comments._id': payload.commentId },
     {
       $pull: { comments: { _id: payload.commentId } },
     },
   );
+
+  return result;
 };
 
 export const commentService = {

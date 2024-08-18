@@ -75,12 +75,13 @@ const updatePost = catchAsync(async (req, res) => {
 const deletePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
   const token = req.headers.authorization;
-  await postService.deletePostFromDB(postId, token as string);
+  const result = await postService.deletePostFromDB(postId, token as string);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: 'Post delete successful',
+    data: result,
   });
 });
 
