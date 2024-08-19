@@ -11,7 +11,7 @@ export type TLike = {
 };
 
 export type TPost = {
-  postDetails: string;
+  postDetails?: string;
   image?: string;
   postCategory?: string;
   comments?: TComment[];

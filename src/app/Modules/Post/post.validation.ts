@@ -18,7 +18,7 @@ export const commentValidationSchema = z.object({
 
 const createPostValidationSchema = z.object({
   body: z.object({
-    postDetails: z.string().min(1, 'Post details are required'),
+    postDetails: z.string().min(1, 'Post details are required').optional(),
     image: z.string().optional(),
     comments: z.array(commentValidationSchema).optional(),
     author: z

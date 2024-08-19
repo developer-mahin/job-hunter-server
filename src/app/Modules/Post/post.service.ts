@@ -22,7 +22,8 @@ const createPostIntoDB = async (
     image: payload.image || '',
   };
 
-  return await Post.create(postData);
+  const result = await Post.create(postData);
+  return result;
 };
 
 const getAllPostFromDB = async (query: Record<string, unknown>) => {

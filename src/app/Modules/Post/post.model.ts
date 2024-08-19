@@ -26,7 +26,6 @@ const postSchema = new mongoose.Schema<TPost>(
   {
     postDetails: {
       type: String,
-      required: true,
       trim: true,
     },
     postCategory: {
