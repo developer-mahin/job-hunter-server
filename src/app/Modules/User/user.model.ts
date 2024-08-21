@@ -29,6 +29,12 @@ const userSchema = new mongoose.Schema<TUser, UserModel>(
       type: String,
       required: [true, 'Photo is required'],
     },
+    phoneNumber: {
+      type: String,
+    },
+    about: {
+      type: String,
+    },
     coverPhoto: String,
     education: {
       type: String,

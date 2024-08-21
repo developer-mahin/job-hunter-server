@@ -11,15 +11,22 @@ const updateUserValidationSchema = z.object({
     coverPhoto: z
       .string()
       .url({ message: 'Invalid cover photo URL' })
+      .min(1, { message: 'Name is required' })
       .optional(),
-    education: z.string().optional(),
-    headline: z.string().optional(),
+    education: z.string().min(1, { message: 'Name is required' }).optional(),
+    headline: z.string().min(1, { message: 'Name is required' }).optional(),
+    phoneNumber: z.string().min(1, { message: 'Name is required' }).optional(),
+    about: z.string().min(1, { message: 'Name is required' }).optional(),
     info: z
       .object({
-        tag: z.string().optional(),
-        website: z.string().url({ message: 'Invalid website URL' }).optional(),
-        country: z.string().optional(),
-        city: z.string().optional(),
+        tag: z.string().min(1, { message: 'Name is required' }).optional(),
+        website: z
+          .string()
+          .min(1, { message: 'Name is required' })
+          .url({ message: 'Invalid website URL' })
+          .optional(),
+        country: z.string().min(1, { message: 'Name is required' }).optional(),
+        city: z.string().min(1, { message: 'Name is required' }).optional(),
       })
       .optional(),
   }),

@@ -9,8 +9,10 @@ export type TUser = {
   confirmPassword: string;
   photo: string;
   coverPhoto?: string;
+  phoneNumber?: string;
   education?: string;
   headline?: string;
+  about?: string;
   info?: {
     tag?: string;
     website?: string;
