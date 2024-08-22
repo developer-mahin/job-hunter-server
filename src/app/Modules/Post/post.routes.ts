@@ -27,6 +27,12 @@ router.get(
 );
 
 router.get(
+  '/user_post/:userId',
+  auth(USER_ROLE.user, USER_ROLE.recruiter, USER_ROLE.admin),
+  postController.getUserPost,
+);
+
+router.get(
   '/all_single_post/:postId',
   auth(USER_ROLE.user, USER_ROLE.recruiter, USER_ROLE.admin),
   postController.getSinglePost,

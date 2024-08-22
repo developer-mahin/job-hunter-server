@@ -43,6 +43,19 @@ const getAllMyPost = catchAsync(async (req, res) => {
   });
 });
 
+const getUserPost = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await postService.getUserPostFromDB(req.query, userId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Post retrieve successful',
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
 const getSinglePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
   const result = await postService.getSinglePostFromDB(postId);
@@ -91,5 +104,6 @@ export const postController = {
   getSinglePost,
   updatePost,
   deletePost,
+  getUserPost,
   getAllMyPost,
 };

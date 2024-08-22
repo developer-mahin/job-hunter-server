@@ -75,6 +75,30 @@ const getAllMyPostFromDB = async (
   };
 };
 
+const getUserPostFromDB = async (
+  query: Record<string, unknown>,
+  userId: string,
+) => {
+  const postSearchableQuery = ['postDetails'];
+
+  const postQuery = new QueryBuilder(
+    Post.find({ author: userId }).populate('author').populate({
+      path: 'comments.user',
+      model: 'User',
+    }),
+    query,
+  )
+    .search(postSearchableQuery)
+    .paginate()
+    .sort();
+  const result = await postQuery.queryModel;
+  const meta = await postQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
+};
+
 const getSinglePostFromDB = async (postId: string) => {
   return await Post.findById(postId)
     .populate('author')
@@ -134,5 +158,6 @@ export const postService = {
   getSinglePostFromDB,
   updatePostIntoDB,
   deletePostFromDB,
+  getUserPostFromDB,
   getAllMyPostFromDB,
 };
