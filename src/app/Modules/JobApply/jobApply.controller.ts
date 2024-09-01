@@ -20,6 +20,24 @@ const createJobApply = catchAsync(async (req, res) => {
   });
 });
 
+const selectCandidate = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+  const { jobId } = req.params;
+  const result = await jobApplyService.selectCandidate(
+    req.body,
+    jobId,
+    token as string,
+  );
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: 'User Selected Successful',
+    data: result,
+  });
+});
+
 export const jobApplyController = {
   createJobApply,
+  selectCandidate,
 };

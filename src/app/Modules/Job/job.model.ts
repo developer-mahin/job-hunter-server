@@ -13,7 +13,7 @@ const jobSchema = new mongoose.Schema<TJob>(
     },
     companyLogo: {
       type: String,
-      required: [true, 'Company logo is required'],
+      // required: [true, 'Company logo is required'],
     },
     workPlaceType: {
       type: String,
@@ -23,21 +23,18 @@ const jobSchema = new mongoose.Schema<TJob>(
       type: String,
       required: [true, 'Job type is required'],
     },
-    description: {
+    jobDescription: {
       type: String,
       required: [true, 'Job description is required'],
     },
-    skills: {
+
+    location: {
       type: String,
-      required: [true, 'Skills are required'],
+      required: [true, 'location is required'],
     },
-    experience: {
+    website: {
       type: String,
-      required: [true, 'Experience is required'],
-    },
-    additionalRequirements: {
-      type: String,
-      required: [true, 'Additional requirements are required'],
+      required: [true, 'website is required'],
     },
     author: {
       type: Schema.Types.ObjectId,
@@ -47,7 +44,6 @@ const jobSchema = new mongoose.Schema<TJob>(
     selectedCandidate: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Author is required'],
     },
     candidate: [
       {

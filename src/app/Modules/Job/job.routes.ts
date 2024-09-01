@@ -21,6 +21,12 @@ router.get(
 );
 
 router.get(
+  '/get_all_my_jobs',
+  auth(USER_ROLE.admin, USER_ROLE.recruiter),
+  jobController.getAllMyJob,
+);
+
+router.get(
   '/get_single_job/:jobId',
   auth(USER_ROLE.admin, USER_ROLE.recruiter, USER_ROLE.user),
   jobController.getSingleJob,

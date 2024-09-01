@@ -8,42 +8,27 @@ const createJobValidationSchema = z.object({
     companyName: z.string({
       required_error: 'Company name is required',
     }),
-    companyLogo: z.string({
-      required_error: 'Company logo is required',
-    }),
+    companyLogo: z
+      .string({
+        required_error: 'Company logo is required',
+      })
+      .optional(),
     workPlaceType: z.string({
       required_error: 'Workplace type is required',
     }),
+
     jobType: z.string({
       required_error: 'Job type is required',
     }),
-    description: z.string({
+    jobDescription: z.string({
       required_error: 'Job description is required',
     }),
-    skills: z.string({
-      required_error: 'Skills are required',
+    website: z.string({
+      required_error: 'website are required',
     }),
-    experience: z.string({
-      required_error: 'Experience is required',
+    location: z.string({
+      required_error: 'location are required',
     }),
-    additionalRequirements: z.string({
-      required_error: 'Additional requirements are required',
-    }),
-    author: z
-      .string({
-        required_error: 'Author is required',
-      })
-      .refine((value) => /^[0-9a-fA-F]{24}$/.test(value), {
-        message: 'Author must be a valid ObjectId',
-      })
-      .optional(),
-    candidate: z
-      .array(
-        z.string().refine((value) => /^[0-9a-fA-F]{24}$/.test(value), {
-          message: 'Each candidate must be a valid ObjectId',
-        }),
-      )
-      .optional(),
   }),
 });
 
@@ -82,6 +67,16 @@ const updateJobValidationSchema = z.object({
     skills: z
       .string({
         required_error: 'Skills are required',
+      })
+      .optional(),
+    website: z
+      .string({
+        required_error: 'website are required',
+      })
+      .optional(),
+    location: z
+      .string({
+        required_error: 'location are required',
       })
       .optional(),
     experience: z

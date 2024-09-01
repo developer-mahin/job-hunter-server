@@ -14,4 +14,10 @@ router.post(
   jobApplyController.createJobApply,
 );
 
+router.post(
+  '/select_candidate/:jobId',
+  auth(USER_ROLE.recruiter),
+  jobApplyController.selectCandidate,
+);
+
 export const jobApplyRoutes = router;

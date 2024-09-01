@@ -6,6 +6,7 @@ import AppError from '../../../utils/AppError';
 import { decodeToken } from '../../../utils/decodeToken';
 import { TJob } from './job.interface';
 import Job from './job.model';
+import JobApply from '../JobApply/jobApply.model';
 
 const createJobIntoDB = async (payload: TJob, token: string) => {
   const decode = decodeToken(
@@ -27,7 +28,7 @@ const getAllJobFromDB = async (query: Record<string, unknown>) => {
 
   const jobQuery = new QueryBuilder(
     Job.find({}).populate('author').populate({
-      path: 'candidate.user',
+      path: 'candidate',
       model: 'User',
     }),
     query,
@@ -44,10 +45,19 @@ const getAllJobFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleJobFromDB = async (jobId: string) => {
-  return await Job.findById(jobId).populate('author').populate({
-    path: 'candidate.user',
-    model: 'User',
-  });
+  const applyJob = await JobApply.find({
+    jobId,
+  })
+    .populate({
+      path: 'candidateId',
+      model: 'User',
+    })
+    .populate({
+      path: 'jobId',
+      model: 'Job',
+    });
+
+  return applyJob;
 };
 
 const getAllMyJobFromDB = async (
@@ -62,7 +72,7 @@ const getAllMyJobFromDB = async (
 
   const jobQuery = new QueryBuilder(
     Job.find({ author: decode.userId }).populate('author').populate({
-      path: 'comments.user',
+      path: 'candidate',
       model: 'User',
     }),
     query,
