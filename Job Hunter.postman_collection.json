@@ -1,0 +1,1950 @@
+{
+	"info": {
+		"_postman_id": "42f6767e-61ba-4aaa-880e-748b0d43d397",
+		"name": "Job Hunter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24264729"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register_user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mahin\",\r\n    \"email\": \"vivij91161@foraro.com\",\r\n    \"password\": \"123456\",\r\n    \"confirmPassword\": \"123456\",\r\n    \"photo\": \"https://www.youtube.com/watch?v=P0x9LJuHtI8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register_user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register_user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register_user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mahin\",\r\n    \"email\": \"vivij91161@foraro.com\",\r\n    \"password\": \"123456\",\r\n    \"confirmPassword\": \"123456\",\r\n    \"photo\": \"https://www.youtube.com/watch?v=P0x9LJuHtI8\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register_user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register_user"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "login_user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"wipad52531@eixdeal.com\",\r\n    \"password\": \"Pa$$w0rd!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login_user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login_user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login_user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"wipad52531@eixdeal.com\",\r\n    \"password\": \"Pa$$w0rd!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/auth/login_user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login_user"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "change_password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"654321\",\r\n    \"oldPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/change-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "change_password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDU4MjY5OSwiZXhwIjoxNzI3MTc0Njk5fQ.OFRLLTZOaL-oUitP3TWgYWYMviDPBMvUBr3OsZKbMiU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPassword\": \"654321\",\r\n    \"oldPassword\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/auth/change-password",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"change-password"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "forgot_password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"mdmahin1310@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/forgot-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "forgot_password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"mdmahin1310@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/auth/forgot-password",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"forgot-password"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "reset_password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/forgot-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reset_password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/auth/forgot-password",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"forgot-password"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "refresh_token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/refresh-token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "refresh_token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/auth/refresh-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get_my_profiie",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/my_profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"my_profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_my_profiie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDU4MjY5OSwiZXhwIjoxNzI3MTc0Njk5fQ.OFRLLTZOaL-oUitP3TWgYWYMviDPBMvUBr3OsZKbMiU",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/my_profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"my_profile"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_all_users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/all_users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"all_users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_all_users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDU4MjY5OSwiZXhwIjoxNzI3MTc0Njk5fQ.OFRLLTZOaL-oUitP3TWgYWYMviDPBMvUBr3OsZKbMiU",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/all_users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"all_users"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_single_user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/single_user/66a9cbcac9d6c885d6aa9f80",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"single_user",
+								"66a9cbcac9d6c885d6aa9f80"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_single_user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDU4MjY5OSwiZXhwIjoxNzI3MTc0Njk5fQ.OFRLLTZOaL-oUitP3TWgYWYMviDPBMvUBr3OsZKbMiU",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/single_user/66a9cbcac9d6c885d6aa9f80",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"single_user",
+										"66a9cbcac9d6c885d6aa9f80"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update_user",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Abul Hashem\",\r\n    \"info\": {\r\n        \"city\": \"Dhaka\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/update_user/66a9cbcac9d6c885d6aa9f80",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"update_user",
+								"66a9cbcac9d6c885d6aa9f80"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update_user",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDU4MjY5OSwiZXhwIjoxNzI3MTc0Njk5fQ.OFRLLTZOaL-oUitP3TWgYWYMviDPBMvUBr3OsZKbMiU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Abul Hashem\",\r\n    \"info\": {\r\n        \"city\": \"Dhaka\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/update_user/66a9cbcac9d6c885d6aa9f80",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update_user",
+										"66a9cbcac9d6c885d6aa9f80"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete_user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isDeleted\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/delete_user/66a9cbcac9d6c885d6aa9f80",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"delete_user",
+								"66a9cbcac9d6c885d6aa9f80"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete_user",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"isDeleted\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/delete_user/66a9cbcac9d6c885d6aa9f80",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"delete_user",
+										"66a9cbcac9d6c885d6aa9f80"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "create_post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postDetails\": \"First Post 2\",\r\n    \"author\": \"66a9230915c9b3a67d647254\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/post/create_post",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"create_post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"postDetails\": \"First Post 2\",\r\n    \"author\": \"66a9230915c9b3a67d647254\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/post/create_post",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"post",
+										"create_post"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_all_post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/post/all_post",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"all_post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_all_post",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/post/all_post",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"post",
+										"all_post"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_single_post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/post/all_single_post/66b1ecee678c853b945b8d9b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"all_single_post",
+								"66b1ecee678c853b945b8d9b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_single_post",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/post/all_single_post/66b1ecee678c853b945b8d9b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"post",
+										"all_single_post",
+										"66b1ecee678c853b945b8d9b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update_post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postDetails\": \"First Post\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/post/update_post/66acec9393c755b83f15e498",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"update_post",
+								"66acec9393c755b83f15e498"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update_post",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"postDetails\": \"First Post\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/post/update_post/66acec9393c755b83f15e498",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"post",
+										"update_post",
+										"66acec9393c755b83f15e498"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete_post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpdmlqOTExNjFAZm9yYXJvLmNvbSIsInVzZXJJZCI6IjY2YWNmM2RiOGZiOTE0M2Q0NDkxOTYxYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIyNjExMzk2LCJleHAiOjE3MjI2OTc3OTZ9.gSZuXSqiUbQg5JieMGO5B9LGkSx05O6ZKD3XTPWzIZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/post/delete_post/66aced295b9a88162b2be678",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"delete_post",
+								"66aced295b9a88162b2be678"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete_post",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpdmlqOTExNjFAZm9yYXJvLmNvbSIsInVzZXJJZCI6IjY2YWNmM2RiOGZiOTE0M2Q0NDkxOTYxYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIyNjExMzk2LCJleHAiOjE3MjI2OTc3OTZ9.gSZuXSqiUbQg5JieMGO5B9LGkSx05O6ZKD3XTPWzIZ8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/post/delete_post/66aced295b9a88162b2be678",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"post",
+										"delete_post",
+										"66aced295b9a88162b2be678"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_all_my_post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/post/my_posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"my_posts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_all_my_post",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/post/my_posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"post",
+										"my_posts"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "user_post",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "user_post",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "create_comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentBody\": \"Hello comment \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comment/create_comment/66b1ecee678c853b945b8d9b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comment",
+								"create_comment",
+								"66b1ecee678c853b945b8d9b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_comment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"commentBody\": \"Hello comment \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comment/create_comment/66b1ecee678c853b945b8d9b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comment",
+										"create_comment",
+										"66b1ecee678c853b945b8d9b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update_comment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentBody\": \"update my comment\",\r\n    \"commentId\": \"66b1ed494355bd92221772a6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comment/update_comment/66b1ecee678c853b945b8d9b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comment",
+								"update_comment",
+								"66b1ecee678c853b945b8d9b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update_comment",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"commentBody\": \"update my comment\",\r\n    \"commentId\": \"66b1ed494355bd92221772a6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comment/update_comment/66b1ecee678c853b945b8d9b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comment",
+										"update_comment",
+										"66b1ecee678c853b945b8d9b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete_comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentId\": \"66b1ed494355bd92221772a6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comment/delete_comment/66b1ecee678c853b945b8d9b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comment",
+								"delete_comment",
+								"66b1ecee678c853b945b8d9b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete_comment",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"commentId\": \"66b1ed494355bd92221772a6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comment/delete_comment/66b1ecee678c853b945b8d9b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comment",
+										"delete_comment",
+										"66b1ecee678c853b945b8d9b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "like",
+			"item": [
+				{
+					"name": "like",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haGlua2hhbjQyMzhAZ21haWwuY29tIiwidXNlcklkIjoiNjZhOWNiY2FjOWQ2Yzg4NWQ2YWE5ZjgwIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MjI5NTczMzAsImV4cCI6MTcyNTU0OTMzMH0.E7pJXGBf6R2n1GAje2nSGEJ5KXp5-R4VGl9ors0IkIE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/like/66b1ecee678c853b945b8d9b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"like",
+								"66b1ecee678c853b945b8d9b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "like",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haGlua2hhbjQyMzhAZ21haWwuY29tIiwidXNlcklkIjoiNjZhOWNiY2FjOWQ2Yzg4NWQ2YWE5ZjgwIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MjI5NTczMzAsImV4cCI6MTcyNTU0OTMzMH0.E7pJXGBf6R2n1GAje2nSGEJ5KXp5-R4VGl9ors0IkIE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/like/66b1ecee678c853b945b8d9b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"like",
+										"66b1ecee678c853b945b8d9b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_liked_user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/like/66b1ecee678c853b945b8d9b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"like",
+								"66b1ecee678c853b945b8d9b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_liked_user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/like/66b1ecee678c853b945b8d9b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"like",
+										"66b1ecee678c853b945b8d9b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Job",
+			"item": [
+				{
+					"name": "create_job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{recruiterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jobTitle\": \"Full-Stack Developer\",\r\n    \"companyName\": \"Tech Innovators Inc.\",\r\n    \"companyLogo\": \"https://example.com/logo.png\",\r\n    \"workPlaceType\": \"Remote\",\r\n    \"jobType\": \"Full-Time\",\r\n    \"description\": \"We are looking for a skilled Full-Stack Developer to join our team. The role involves working on various web and mobile applications.\",\r\n    \"skills\": \"JavaScript, TypeScript, Node.js, React, MongoDB\",\r\n    \"experience\": \"3+ years of experience in full-stack development.\",\r\n    \"additionalRequirements\": \"Knowledge of cloud platforms like AWS is a plus. Strong problem-solving skills and the ability to work independently.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/job/create_job",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job",
+								"create_job"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_job",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{recruiterToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"jobTitle\": \"Full-Stack Developer\",\r\n    \"companyName\": \"Tech Innovators Inc.\",\r\n    \"companyLogo\": \"https://example.com/logo.png\",\r\n    \"workPlaceType\": \"Remote\",\r\n    \"jobType\": \"Full-Time\",\r\n    \"description\": \"We are looking for a skilled Full-Stack Developer to join our team. The role involves working on various web and mobile applications.\",\r\n    \"skills\": \"JavaScript, TypeScript, Node.js, React, MongoDB\",\r\n    \"experience\": \"3+ years of experience in full-stack development.\",\r\n    \"additionalRequirements\": \"Knowledge of cloud platforms like AWS is a plus. Strong problem-solving skills and the ability to work independently.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/job/create_job",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job",
+										"create_job"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_all_jobs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{recruiterToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/job/get_all_jobs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job",
+								"get_all_jobs"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_all_jobs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{recruiterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/job/get_all_jobs",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job",
+										"get_all_jobs"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_all_my_jobs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoicmVjcnVpdGVyIiwiaWF0IjoxNzI1MTgxMzIxLCJleHAiOjE3Mjc3NzMzMjF9.8oqAOo6RZOV381NQO2HzRG0u09xDZobRN8JhmrjzyvE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/job/get_all_my_jobs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job",
+								"get_all_my_jobs"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_all_my_jobs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoicmVjcnVpdGVyIiwiaWF0IjoxNzI1MTgxMzIxLCJleHAiOjE3Mjc3NzMzMjF9.8oqAOo6RZOV381NQO2HzRG0u09xDZobRN8JhmrjzyvE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/job/get_all_my_jobs",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job",
+										"get_all_my_jobs"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get_single_job",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{recruiterToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/job/get_single_job/66d2e18d6fea4aeb01903895",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job",
+								"get_single_job",
+								"66d2e18d6fea4aeb01903895"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_single_job",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{recruiterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/job/get_single_job/66d2e18d6fea4aeb01903895",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job",
+										"get_single_job",
+										"66d2e18d6fea4aeb01903895"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update_job",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{recruiterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jobTitle\": \"Front-End Developer\",\r\n    \"companyName\": \"Mahin LTD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/job/update_job/66cac6cbdeb4a11face58854",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job",
+								"update_job",
+								"66cac6cbdeb4a11face58854"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update_job",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{recruiterToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"jobTitle\": \"Front-End Developer\",\r\n    \"companyName\": \"Mahin LTD\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/job/update_job/66cac6cbdeb4a11face58854",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job",
+										"update_job",
+										"66cac6cbdeb4a11face58854"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete_job",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{recruiterToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/job/delete_job/66cac6cbdeb4a11face58854",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job",
+								"delete_job",
+								"66cac6cbdeb4a11face58854"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete_job",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{recruiterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/job/delete_job/66cac6cbdeb4a11face58854",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job",
+										"delete_job",
+										"66cac6cbdeb4a11face58854"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Job_apply",
+			"item": [
+				{
+					"name": "create_job_apply",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"candidateName\": \"John Doe\",\r\n    \"candidateEmail\": \"john.doe@example.com\",\r\n    \"expectedSalary\": \"50000 USD per annum\",\r\n    \"experience\": \"5 years in full-stack development\",\r\n    \"noticePeriod\": \"2 months\",\r\n    \"resume\": \"https://example.com/resume/johndoe.pdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/job_apply/66cacb6bd31ab18b6256589c",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job_apply",
+								"66cacb6bd31ab18b6256589c"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create_job_apply",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"candidateName\": \"John Doe\",\r\n    \"candidateEmail\": \"john.doe@example.com\",\r\n    \"expectedSalary\": \"50000 USD per annum\",\r\n    \"experience\": \"5 years in full-stack development\",\r\n    \"noticePeriod\": \"2 months\",\r\n    \"resume\": \"https://example.com/resume/johndoe.pdf\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/job_apply/66cacb6bd31ab18b6256589c",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job_apply",
+										"66cacb6bd31ab18b6256589c"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "select_candidate",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoicmVjcnVpdGVyIiwiaWF0IjoxNzI1MTk2NTU3LCJleHAiOjE3Mjc3ODg1NTd9.LtHAMEYSfIcPbTLDt49JPL00L5MZOMb30KoCrYKF63U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"66a9cbcac9d6c885d6aa9f80\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/job_apply/select_candidate/66d2e18d6fea4aeb01903895",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"job_apply",
+								"select_candidate",
+								"66d2e18d6fea4aeb01903895"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "select_candidate",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoicmVjcnVpdGVyIiwiaWF0IjoxNzI1MTk2NTU3LCJleHAiOjE3Mjc3ODg1NTd9.LtHAMEYSfIcPbTLDt49JPL00L5MZOMb30KoCrYKF63U",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\": \"66a9cbcac9d6c885d6aa9f80\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/job_apply/select_candidate/66d2e18d6fea4aeb01903895",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"job_apply",
+										"select_candidate",
+										"66d2e18d6fea4aeb01903895"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "userToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpcGFkNTI1MzFAZWl4ZGVhbC5jb20iLCJ1c2VySWQiOiI2NmI1N2MxZjBmYjRjMzZiZDQ0N2YwYmIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDU4MjY5OSwiZXhwIjoxNzI3MTc0Njk5fQ.OFRLLTZOaL-oUitP3TWgYWYMviDPBMvUBr3OsZKbMiU",
+			"type": "string"
+		},
+		{
+			"key": "recruiterToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haGlua2hhbjQyMzhAZ21haWwuY29tIiwidXNlcklkIjoiNjZhOWNiY2FjOWQ2Yzg4NWQ2YWE5ZjgwIiwicm9sZSI6InJlY3J1aXRlciIsImlhdCI6MTcyNDU2NTE3OCwiZXhwIjoxNzI3MTU3MTc4fQ.tAYca-3GsAQO6vsVePV_xi4ZpMmGt-LQ21lLFddA-V0",
+			"type": "string"
+		}
+	]
+}

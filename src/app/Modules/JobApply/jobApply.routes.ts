@@ -5,6 +5,7 @@ import validateRequest from '../../../middlewares/validation';
 import { jobApplyValidation } from './jobApply.validation';
 import { jobApplyController } from './jobApply.controller';
 
+
 const router = Router();
 
 router.post(
@@ -14,7 +15,7 @@ router.post(
   jobApplyController.createJobApply,
 );
 
-router.post(
+router.patch(
   '/select_candidate/:jobId',
   auth(USER_ROLE.recruiter),
   jobApplyController.selectCandidate,

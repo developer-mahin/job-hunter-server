@@ -23,6 +23,7 @@ const createJobApply = catchAsync(async (req, res) => {
 const selectCandidate = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
   const { jobId } = req.params;
+
   const result = await jobApplyService.selectCandidate(
     req.body,
     jobId,
