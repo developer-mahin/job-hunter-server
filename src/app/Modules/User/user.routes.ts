@@ -39,4 +39,10 @@ router.delete(
   userController.deleteUser,
 );
 
+router.patch(
+  '/change_user_role',
+  auth(USER_ROLE.admin, USER_ROLE.recruiter, USER_ROLE.user),
+  userController.changeUserRole,
+);
+
 export const userRoutes = router;

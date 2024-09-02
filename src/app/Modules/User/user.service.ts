@@ -6,6 +6,8 @@ import { JwtPayload, Secret } from 'jsonwebtoken';
 import User from './user.model';
 import QueryBuilder from '../../../QueryBuilder/QueryBuilder';
 import { TUser } from './user.interface';
+import { USER_ROLE } from './user.constant';
+import generateToken from '../../../utils/generateToken';
 
 const getMyProfileFromDB = async (token: string) => {
   if (!token) {
@@ -111,10 +113,57 @@ const deleteUserFormDB = async (
   await User.findByIdAndUpdate(id, payload, { new: true });
 };
 
+const changeUserRole = async (token: string) => {
+  const user = decodeToken(
+    token,
+    config.jwt.access_token as string,
+  ) as JwtPayload;
+
+  let result;
+
+  if (user.role === USER_ROLE.recruiter) {
+    result = await User.findOneAndUpdate(
+      { email: user.email },
+      { $set: { role: 'user' } },
+      { new: true },
+    );
+  } else if (user.role === USER_ROLE.user) {
+    result = await User.findOneAndUpdate(
+      { email: user.email },
+      { $set: { role: 'recruiter' } },
+      { new: true },
+    );
+  }
+
+  const userData = {
+    email: result?.email,
+    userId: result?._id,
+    role: result?.role,
+  };
+
+  const accessToken = generateToken(
+    userData,
+    config.jwt.access_token as Secret,
+    config.jwt.access_expires_in as string,
+  );
+
+  const refreshToken = generateToken(
+    userData,
+    config.jwt.refresh_token as Secret,
+    config.jwt.refresh_expires_in as string,
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
+};
+
 export const userService = {
   getMyProfileFromDB,
   getAllUsersFromDb,
   getSingleUsersFromDb,
   updateUserIntoDB,
   deleteUserFormDB,
+  changeUserRole,
 };

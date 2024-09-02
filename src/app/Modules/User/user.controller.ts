@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';
 import { userService } from './user.service';
+import config from '../../../config';
 
 const getMyProfile = catchAsync(async (req, res) => {
   const token = req.headers.authorization as string;
@@ -64,10 +65,33 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
+const changeUserRole = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+
+  const { accessToken, refreshToken } = await userService.changeUserRole(
+    token as string,
+  );
+
+  res.cookie('refreshToken', refreshToken, {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+  });
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'user role change successful',
+    data: {
+      token: accessToken,
+    },
+  });
+});
+
 export const userController = {
   getMyProfile,
   getAllUser,
   getSingleUser,
   updateUser,
   deleteUser,
+  changeUserRole,
 };
