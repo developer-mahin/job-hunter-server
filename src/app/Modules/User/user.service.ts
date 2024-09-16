@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import AppError from '../../../utils/AppError';
 import { decodeToken } from '../../../utils/decodeToken';
@@ -8,6 +9,7 @@ import QueryBuilder from '../../../QueryBuilder/QueryBuilder';
 import { TUser } from './user.interface';
 import { USER_ROLE } from './user.constant';
 import generateToken from '../../../utils/generateToken';
+import mongoose from 'mongoose';
 
 const getMyProfileFromDB = async (token: string) => {
   if (!token) {
@@ -159,6 +161,122 @@ const changeUserRole = async (token: string) => {
   };
 };
 
+const followUserIntoDB = async (token: string, userId: string) => {
+  const user = decodeToken(
+    token,
+    config.jwt.access_token as string,
+  ) as JwtPayload;
+
+  const findMe = await User.findById(user.userId);
+  const findFollowUser = await User.findById(userId);
+
+  // Check if the user to follow exists
+  if (!findFollowUser) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found with this ID');
+  }
+
+  if (!findMe) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found with this ID');
+  }
+
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    // Update the other user's 'following' array
+    let updatedUser;
+
+    if (
+      !findMe?.following?.some((follow) => follow.user.toString() === userId)
+    ) {
+      updatedUser = await User.findOneAndUpdate(
+        { _id: findMe._id },
+        {
+          $push: {
+            following: {
+              user: userId,
+            },
+          },
+        },
+        { session, new: true },
+      );
+    } else {
+      updatedUser = await User.findOneAndUpdate(
+        { _id: findMe._id },
+        {
+          $pull: {
+            following: {
+              user: userId,
+            },
+          },
+        },
+        { session, new: true },
+      );
+    }
+
+    // If no user is found or update fails
+    if (!updatedUser) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Your profile wasn't updated; something went wrong!",
+      );
+    }
+
+    // Update the other user's 'followers' array
+    let updatedFollowUser;
+
+    if (
+      !findFollowUser?.followers?.some(
+        (follow) => follow.user.toString() === user.userId,
+      )
+    ) {
+      updatedFollowUser = await User.findOneAndUpdate(
+        { _id: findFollowUser._id },
+        {
+          $push: {
+            followers: {
+              user: user.userId,
+            },
+          },
+        },
+        { session, new: true },
+      );
+    } else {
+      updatedFollowUser = await User.findOneAndUpdate(
+        { _id: findFollowUser._id },
+        {
+          $pull: {
+            followers: {
+              user: user.userId,
+            },
+          },
+        },
+        { session, new: true },
+      );
+    }
+
+    // If the second update fails
+    if (!updatedFollowUser) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Couldn't update the follow user's profile!",
+      );
+    }
+
+    // Commit the transaction if everything is successful
+    await session.commitTransaction();
+    await session.endSession();
+
+    return updatedUser;
+  } catch (error: any) {
+    // Rollback the transaction in case of an error
+    await session.abortTransaction();
+    await session.endSession();
+    throw new AppError(httpStatus.BAD_REQUEST, error.message);
+  }
+};
+
 export const userService = {
   getMyProfileFromDB,
   getAllUsersFromDb,
@@ -166,4 +284,5 @@ export const userService = {
   updateUserIntoDB,
   deleteUserFormDB,
   changeUserRole,
+  followUserIntoDB,
 };

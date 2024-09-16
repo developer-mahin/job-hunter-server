@@ -24,7 +24,7 @@ app.use('/api/v1', router);
 
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
   res.json({
-    message: 'Welcome To The Blood Donation Server',
+    message: 'Welcome To The Job Hunter Server',
   });
 });
 

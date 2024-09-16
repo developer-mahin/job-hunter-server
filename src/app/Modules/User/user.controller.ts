@@ -87,6 +87,20 @@ const changeUserRole = catchAsync(async (req, res) => {
   });
 });
 
+const followUser = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+  const { userId } = req.params;
+
+  const result = await userService.followUserIntoDB(token as string, userId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'user role change successful',
+    data: result,
+  });
+});
+
 export const userController = {
   getMyProfile,
   getAllUser,
@@ -94,4 +108,5 @@ export const userController = {
   updateUser,
   deleteUser,
   changeUserRole,
+  followUser,
 };

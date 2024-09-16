@@ -1,5 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
+
+export type TFollowers = {
+  user: Types.ObjectId;
+};
+
+export type TFollowing = {
+  user: Types.ObjectId;
+};
 
 export type TUser = {
   _id?: string;
@@ -13,6 +21,8 @@ export type TUser = {
   education?: string;
   headline?: string;
   about?: string;
+  followers?: TFollowers[];
+  following?: TFollowing[];
   info?: {
     tag?: string;
     website?: string;

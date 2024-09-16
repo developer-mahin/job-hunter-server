@@ -45,4 +45,10 @@ router.patch(
   userController.changeUserRole,
 );
 
+router.patch(
+  '/follow/:userId',
+  auth(USER_ROLE.admin, USER_ROLE.recruiter, USER_ROLE.user),
+  userController.followUser,
+);
+
 export const userRoutes = router;

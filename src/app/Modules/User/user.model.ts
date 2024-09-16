@@ -1,7 +1,24 @@
 import mongoose from 'mongoose';
-import { TUser, UserModel } from './user.interface';
+import { TFollowers, TFollowing, TUser, UserModel } from './user.interface';
 import { hashPassword } from '../../../utils/hashPassword';
 import config from '../../../config';
+import { Schema } from 'mongoose';
+
+const followingSchema = new mongoose.Schema<TFollowing>({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+});
+
+const followersSchema = new mongoose.Schema<TFollowers>({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+});
 
 const userSchema = new mongoose.Schema<TUser, UserModel>(
   {
@@ -44,6 +61,9 @@ const userSchema = new mongoose.Schema<TUser, UserModel>(
       type: String,
       trim: true,
     },
+
+    followers: [followersSchema],
+    following: [followingSchema],
     info: {
       tag: {
         type: String,
