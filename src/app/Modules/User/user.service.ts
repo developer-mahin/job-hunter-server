@@ -47,7 +47,13 @@ const getAllUsersFromDb = async (query: Record<string, unknown>) => {
     'tag.city',
   ];
 
-  const userQuery = new QueryBuilder(User.find(), query)
+  const userQuery = new QueryBuilder(
+    User.find().populate({
+      path: 'following.user',
+      model: 'User',
+    }),
+    query,
+  )
     .search(userSearchableQuery)
     .sort()
     .paginate()
