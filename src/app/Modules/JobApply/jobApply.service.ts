@@ -51,6 +51,10 @@ const createJobApplyIntoDB = async (
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
+    throw new AppError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      'Job application failed',
+    );
   }
 };
 

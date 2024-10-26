@@ -6,7 +6,6 @@ const jobApplySchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Candidate ID is required'],
-      unique: true,
     },
     jobId: {
       type: Schema.Types.ObjectId,
@@ -20,7 +19,6 @@ const jobApplySchema = new mongoose.Schema(
     candidateEmail: {
       type: String,
       required: [true, 'Candidate email is required'],
-      unique: true,
     },
     expectedSalary: {
       type: String,
