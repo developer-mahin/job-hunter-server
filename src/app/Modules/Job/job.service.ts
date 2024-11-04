@@ -3,6 +3,7 @@ import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import QueryBuilder from '../../../QueryBuilder/QueryBuilder';
 import AppError from '../../../utils/AppError';
+
 import { decodeToken } from '../../../utils/decodeToken';
 import { TJob } from './job.interface';
 import Job from './job.model';

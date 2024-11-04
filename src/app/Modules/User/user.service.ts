@@ -21,7 +21,15 @@ const getMyProfileFromDB = async (token: string) => {
     config.jwt.access_token as Secret,
   ) as JwtPayload;
 
-  const isExist = await User.findOne({ email: user.email });
+  const isExist = await User.findOne({ email: user.email })
+    .populate({
+      path: 'following.user',
+      model: 'User',
+    })
+    .populate({
+      path: 'followers.user',
+      model: 'User',
+    });
 
   if (!isExist) {
     throw new AppError(httpStatus.FORBIDDEN, 'User not found');

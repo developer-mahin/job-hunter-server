@@ -19,6 +19,10 @@ const jobSchema = new mongoose.Schema<TJob>(
       type: String,
       required: [true, 'Workplace type is required'],
     },
+    Industryndustry: {
+      type: String,
+      required: [true, 'Workplace type is required'],
+    },
     jobType: {
       type: String,
       required: [true, 'Job type is required'],

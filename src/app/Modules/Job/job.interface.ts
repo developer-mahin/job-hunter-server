@@ -5,6 +5,7 @@ export type TJob = {
   companyName: string;
   companyLogo?: string;
   location: string;
+  industry: string;
   website: string;
   workPlaceType: string;
   jobType: string;
