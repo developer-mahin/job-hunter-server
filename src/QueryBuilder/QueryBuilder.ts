@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FilterQuery, Query } from 'mongoose';
 
 class QueryBuilder<T> {
@@ -26,11 +27,29 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj = { ...this.query };
+
+    const filterableQuery = [
+      'jobType',
+      'industry',
+      'location',
+      'workPlaceType',
+    ];
+
+    const filteredQuery = Object.keys(queryObj)
+      .filter((key) => filterableQuery.includes(key))
+      .reduce(
+        (obj, key) => {
+          obj[key] = queryObj[key];
+          return obj;
+        },
+        {} as Record<string, any>,
+      );
+
     // filtering
     const excludesField = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
     excludesField.forEach((ele) => delete queryObj[ele]);
 
-    this.queryModel = this.queryModel.find(queryObj as FilterQuery<T>);
+    this.queryModel = this.queryModel.find(filteredQuery as FilterQuery<T>);
     return this;
   }
 

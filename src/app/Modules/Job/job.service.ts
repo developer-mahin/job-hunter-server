@@ -3,7 +3,6 @@ import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import QueryBuilder from '../../../QueryBuilder/QueryBuilder';
 import AppError from '../../../utils/AppError';
-
 import { decodeToken } from '../../../utils/decodeToken';
 import { TJob } from './job.interface';
 import Job from './job.model';
@@ -27,6 +26,8 @@ const createJobIntoDB = async (payload: TJob, token: string) => {
 const getAllJobFromDB = async (query: Record<string, unknown>) => {
   const jobSearchableQuery = ['jobTitle', 'jobType'];
 
+  // console.log(query)
+
   const jobQuery = new QueryBuilder(
     Job.find({}).populate('author').populate({
       path: 'candidate',
@@ -36,8 +37,11 @@ const getAllJobFromDB = async (query: Record<string, unknown>) => {
   )
     .search(jobSearchableQuery)
     .paginate()
+    .filter()
     .sort();
+
   const result = await jobQuery.queryModel;
+
   const meta = await jobQuery.countTotal();
   return {
     result,
