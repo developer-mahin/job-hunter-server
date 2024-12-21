@@ -39,7 +39,7 @@ class QueryBuilder<T> {
       .filter((key) => filterableQuery.includes(key))
       .reduce(
         (obj, key) => {
-          obj[key] = queryObj[key];
+          obj[key] = { $regex: queryObj[key], $options: 'i' }
           return obj;
         },
         {} as Record<string, any>,
